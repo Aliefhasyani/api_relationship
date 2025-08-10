@@ -25,4 +25,21 @@ class CommentController extends Controller
             "comment" => $comment
         ]);
     }
+
+    public function destroy($id){
+        $comment = Comment::find($id);
+
+        if($comment){
+        $comment->delete();
+        
+        return response()->json([
+                'message' => 'data deleted'
+            ]);
+        
+        }else{
+            return response()->json([
+                'message' => 'invalid'
+            ]);
+        }
+    }
 }
