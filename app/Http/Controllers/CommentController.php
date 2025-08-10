@@ -42,4 +42,28 @@ class CommentController extends Controller
             ]);
         }
     }
+
+    public function update(Request $request, $id){
+        $comment = Comment::find($id);
+
+        if (! $comment) {
+            return response()->json([
+                'message' => 'Comment not found'
+            ], 404);
+        }else{
+           $data = $request->validate([
+                'content' => 'string|max:255|required',
+                'profile_id' => 'required|exists:profiles,id'
+            ]);
+
+            $comment->update($data);
+
+            return response()->json([
+                'message' => 'Data updated'
+            ]);
+        }
+    }
+
+        
+
 }
